@@ -1,10 +1,10 @@
-<!-- Pleaides · Elder Care Intake · MOBILE · v20 · desktop design preserved; adds mobile media query that stacks tables into labelled cards + touch-sized controls -->
+<!-- Pleaides · Elder Care Intake · MOBILE · v21 · fixes: long Q1 option wraps beside its checkbox; all Q6 living-situation choices capitalized -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Pleaides — Family Intake (mobile)</title>
+<title>Pleaides — Family Intake (mobile) · v21</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
@@ -88,8 +88,9 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
  /* touch-friendly controls: 16px prevents iOS zoom, bigger tap targets */
  select,input.txt,.ms-btn{font-size:16px;}
  select,input.txt{padding:12px 12px;min-height:46px;}
- .opt{padding:12px 14px;font-size:15px;gap:12px;flex-wrap:wrap;}
- .opt input{width:20px;height:20px;flex:0 0 auto;}
+ .opt{padding:12px 14px;font-size:15px;gap:12px;align-items:flex-start;}
+ .opt:has(.spec){flex-wrap:wrap;}
+ .opt input{width:20px;height:20px;flex:0 0 auto;margin-top:2px;}
  .opt .spec{font-size:16px;min-width:0;width:100%;margin-left:0;flex:1 1 100%;}
  .ms-panel{position:static;min-width:0;width:100%;box-shadow:none;margin-top:6px;}
  .ms-panel label{padding:9px 6px;font-size:15px;}
@@ -209,10 +210,10 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
     <div class="q-h">6.  What is your loved one’s current living situation?</div><div class="q-tag">Select one</div>
     <div class="opts">
       <label class="opt"><input type="radio" name="q8"> Independent (rent / own / condo)</label>
-      <label class="opt"><input type="radio" name="q8"> living independently with an aide</label>
-      <label class="opt"><input type="radio" name="q8"> independent living facility</label>
-      <label class="opt"><input type="radio" name="q8"> assisted living facility</label>
-      <label class="opt"><input type="radio" name="q8"> memory care facility</label>
+      <label class="opt"><input type="radio" name="q8"> Living independently with an aide</label>
+      <label class="opt"><input type="radio" name="q8"> Independent living facility</label>
+      <label class="opt"><input type="radio" name="q8"> Assisted living facility</label>
+      <label class="opt"><input type="radio" name="q8"> Memory care facility</label>
     </div>
   </div>
 
