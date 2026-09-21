@@ -67,6 +67,12 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
 .sub.open .sub-body{display:block;}
 .sub.open .sub-h .chev{transform:rotate(180deg);}
 
+.submit-wrap{margin:2.2rem 0 .5rem;}
+.btn-submit{width:100%;max-width:340px;border:0;border-radius:10px;background:var(--sky-dark);color:#fff;font-family:inherit;font-size:15px;font-weight:600;letter-spacing:.02em;padding:14px 28px;cursor:pointer;box-shadow:0 4px 16px rgba(13,151,209,.28);transition:background .15s ease;}
+.btn-submit:hover{background:#0b83b6;}
+.btn-submit:active{transform:translateY(1px);}
+.submit-hint{font-size:12px;color:var(--faint);margin-top:.5rem;}
+
 /* ═══════════════════════ MOBILE ═══════════════════════ */
 /* Desktop rules above are untouched. These only apply at ≤820px:
    they stack the wide tables into labelled cards and size controls for touch. */
@@ -91,6 +97,7 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
  .cat-h{padding:15px 16px;}
  .sub-h{padding:14px 15px;}
  .addrow{width:100%;padding:13px 14px;font-size:14px;}
+ .btn-submit{max-width:none;min-height:50px;font-size:16px;}
  .start{padding:1rem 1.1rem;}
  .grid>div{min-width:100%;}   /* first/last name, city/state stack */
 
@@ -130,6 +137,9 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
   <div class="sech">Tell us why you are here</div>
   <div class="subhd">Providing your background information allows you to get started and receive your free assessment.</div>
 
+  <!-- Replace YOUR_FORMSPREE_ID in the action below with your real Formspree endpoint -->
+  <form id="intakeForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+
   <div class="start">
     <div class="grid">
       <div><span class="lbl">First name</span><input class="txt" placeholder="First name"></div>
@@ -146,6 +156,9 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
       <label class="opt"><input type="checkbox" name="q1"> Our own life planning &amp; keeping our children in the loop</label>
     </div>
   </div>
+
+  <!-- FORM 1 — the current intake (Q1 options 1 & 2). Hidden until one of those is chosen. -->
+  <div id="intakeBody">
 
   <div class="q">
     <div class="q-h">2.  My relationship to this person is…</div><div class="q-tag">Select one</div>
@@ -209,7 +222,7 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
       <thead><tr><th style="width:30%;">Who (supporter type)</th><th style="width:26%;">City, State</th><th>How they support</th></tr></thead>
       <tbody></tbody>
     </table>
-    <button class="addrow" onclick="addNet()">+ Add someone</button>
+    <button type="button" class="addrow" onclick="addNet()">+ Add someone</button>
   </div>
 
   <!-- ══ SECTION 2 ══ -->
@@ -278,6 +291,24 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
     <tbody id="eol"></tbody>
   </table>
   </div></div>
+
+  </div><!-- /#intakeBody -->
+
+  <!-- FORM 2 — Q1 option 3 ("Our own life planning…"). Placeholder for now; real questionnaire to be built.
+       Shown when option 3 is checked; appears after Form 1 when both are selected. -->
+  <div id="secondForm" style="display:none;">
+    <div class="eyebrow">Section 2</div>
+    <div class="sech">Planning for yourselves &amp; keeping your children in the loop</div>
+    <div class="subhd">A separate questionnaire for planning your own future while keeping your children in the loop. This section is coming soon — placeholder for now.</div>
+  </div>
+
+  <!-- Submit — appears once a Q1 option is chosen; submits only the visible form(s) -->
+  <div class="submit-wrap" id="submitWrap" style="display:none;">
+    <button type="submit" class="btn-submit">Submit</button>
+    <div class="submit-hint">You can review your answers before submitting.</div>
+  </div>
+
+  </form>
 
 </div>
 <script>
@@ -353,6 +384,44 @@ document.getElementById('elog').innerHTML=ETASKS.map(t=>`<tr><td class="rh">${t}
 const EOLK=["","Known","Existing in Will or Trust","Not important","Not known"];
 const EOL=[["Burial vs. cremation",["","Burial","Cremation","Not important","Not known"]],["Funeral / Memorial tone & wishes",EOLK],["Medical intervention & comfort-care (DNR, hospice)",EOLK],["A contact list of friends and family to notify or who should be present at a funeral in the event of an unexpected death?",EOLK]];
 document.getElementById('eol').innerHTML=EOL.map(r=>`<tr><td class="rh">${r[0]}</td><td data-label="Please Select">${sel(r[1])}</td></tr>`).join('');
+
+// ── Q1 routing (Select all that apply) ──
+// Options 1 or 2 → show Form 1 (the current intake).
+// Option 3 ("Our own life planning…") → show Form 2 (placeholder for now).
+// Selections are additive: pick both kinds and both forms show, one after the other.
+// The Submit button appears once any form is showing, and submits only the visible form(s).
+(function(){
+  var q1=document.querySelectorAll('input[name="q1"]');
+  var intake=document.getElementById('intakeBody');
+  var second=document.getElementById('secondForm');
+  var submitWrap=document.getElementById('submitWrap');
+  var form=document.getElementById('intakeForm');
+  function update(){
+    var wantsIntake = (q1[0] && q1[0].checked) || (q1[1] && q1[1].checked);
+    var wantsSecond = q1[2] && q1[2].checked;
+    if(intake)     intake.style.display     = wantsIntake ? '' : 'none';
+    if(second)     second.style.display     = wantsSecond ? '' : 'none';
+    if(submitWrap) submitWrap.style.display = (wantsIntake || wantsSecond) ? '' : 'none';
+  }
+  q1.forEach(function(cb){ cb.addEventListener('change', update); });
+  update(); // initial: nothing chosen → forms and submit hidden
+
+  if(form){
+    form.addEventListener('submit', function(e){
+      // Disable inputs inside any hidden section so empty fields aren't submitted
+      ['intakeBody','secondForm'].forEach(function(id){
+        var sec=document.getElementById(id); if(!sec) return;
+        var hidden = getComputedStyle(sec).display==='none';
+        sec.querySelectorAll('input,select,textarea').forEach(function(f){ f.disabled=hidden; });
+      });
+      // Placeholder guard — remove these lines once your Formspree endpoint is set
+      if(form.getAttribute('action').indexOf('YOUR_FORMSPREE_ID')!==-1){
+        e.preventDefault();
+        alert('The form is ready — add your Formspree endpoint to the form’s action to go live.');
+      }
+    });
+  }
+})();
 function toggleMenu(i,c){var e=document.getElementById('cat'+i);if(c){e.style.display='block';}else{e.style.display='none';e.classList.remove('open');}}
 function toggleCat(i){document.getElementById('cat'+i).classList.toggle('open');}
 function toggleSub(i){document.getElementById('sub'+i).classList.toggle('open');}
