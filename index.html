@@ -1,10 +1,10 @@
-<!-- Pleaides · Elder Care Intake · MOBILE · v21 · fixes: long Q1 option wraps beside its checkbox; all Q6 living-situation choices capitalized -->
+<!-- Pleaides · Elder Care Intake · MOBILE · v31 · built Form 2 (self-planning / keeping children in the loop): documents, healthcare & final wishes, estate & post-death, key people & access, valuables, children informed -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Pleaides — Family Intake (mobile) · v21</title>
+<title>Pleaides — Family Intake (mobile) · v31</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
@@ -51,8 +51,15 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
 .ms{position:relative;}
 .ms-btn{width:100%;text-align:left;border:1px solid var(--rule);border-radius:8px;padding:6px 8px;background:#fff;font-family:inherit;font-size:12.5px;color:var(--ink);cursor:pointer;}
 .ms-panel{display:none;position:absolute;z-index:10;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:6px;margin-top:3px;box-shadow:0 6px 20px rgba(20,80,120,.12);min-width:240px;}
-.ms-panel label{display:flex;align-items:center;gap:7px;padding:4px 5px;font-size:12.5px;cursor:pointer;}
-.ms-panel input{accent-color:var(--sky);width:15px;height:15px;}
+.ms-panel label{display:flex;align-items:flex-start;gap:8px;padding:5px 6px;font-size:12.5px;line-height:1.35;cursor:pointer;}
+.ms-panel input{flex:0 0 auto;width:16px;height:16px;margin:1px 0 0;accent-color:var(--sky);}
+.loc-row{display:flex;gap:6px;flex-wrap:nowrap;align-items:flex-start;}
+.loc-state{flex:1 1 60px;}
+.loc-zip{flex:1 1 60px;}
+#q9 tbody td{vertical-align:top;}
+.q8auto{background:var(--tint);color:var(--ink);cursor:default;}
+
+.spec-in{width:100%;margin-top:6px;}
 .cat{border:1px solid var(--rule);border-radius:10px;margin-bottom:12px;overflow:hidden;display:none;}
 .cat-h{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--sky-dark);color:#fff;padding:13px 16px;cursor:pointer;}
 .cat-name{font-family:var(--serif);font-size:18px;color:#fff;line-height:1.2;}
@@ -72,6 +79,60 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
 .btn-submit:hover{background:#0b83b6;}
 .btn-submit:active{transform:translateY(1px);}
 .submit-hint{font-size:12px;color:var(--faint);margin-top:.5rem;}
+
+/* -- results / scoring -- */
+.results{margin-top:1.6rem;padding-top:1.4rem;border-top:2px solid var(--rule);}
+.res-title{font-family:'DM Serif Display',Georgia,serif;font-size:26px;color:var(--ink);margin-bottom:.3rem;}
+.sech2{font-family:var(--serif);color:var(--ink);font-size:20px;margin:1.6rem 0 .3rem;padding-top:1.1rem;border-top:2px solid var(--rule);}
+.res-intro{font-size:13.5px;color:var(--ink);margin-bottom:1rem;line-height:1.5;}
+.res-p{font-size:13px;color:var(--ink);margin:.5rem 0;line-height:1.5;}
+.res-ul{margin:.4rem 0;padding-left:1.15rem;}
+.res-ul li{font-size:13px;color:var(--ink);margin:.2rem 0;line-height:1.45;}
+.res-sub2{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);margin:.7rem 0 .3rem;}
+.tier-card{border-radius:14px;padding:1.3rem 1.4rem;margin:.6rem 0 1.4rem;border:1px solid var(--rule);}
+.tier-explore{background:#f2f8fc;color:var(--ink);}
+.tier-plan{background:#dceffb;border-color:#bfe0f5;color:var(--ink);}
+.tier-manage{background:var(--sky);border-color:var(--sky-dark);color:#fff;}
+.tier-perfect{background:linear-gradient(135deg,var(--sky-dark),#0b6fa0);border-color:var(--sky-dark);color:#fff;}
+.tier-stage{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.75;}
+.tier-name{font-family:'DM Serif Display',Georgia,serif;font-size:27px;line-height:1.1;margin:.15rem 0 .35rem;}
+.tier-desc{font-size:14px;opacity:.92;}
+.tier-track{margin-top:.9rem;height:8px;border-radius:5px;background:rgba(0,0,0,.08);overflow:hidden;}
+.tier-manage .tier-track,.tier-perfect .tier-track{background:rgba(255,255,255,.3);}
+.tier-fill{height:8px;border-radius:5px;background:var(--sky-dark);}
+.tier-manage .tier-fill,.tier-perfect .tier-fill{background:#fff;}
+.score-card{border:1px solid var(--rule);border-radius:12px;padding:1rem 1.1rem;margin-bottom:1rem;background:#fff;}
+.score-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:.5rem;}
+.score-t{font-weight:600;font-size:15px;color:var(--ink);}
+.score-v{font-size:13px;font-weight:600;color:var(--sky-dark);white-space:nowrap;}
+.bar{height:8px;border-radius:5px;background:var(--tint);overflow:hidden;display:block;}
+.bar-fill{height:8px;border-radius:5px;background:var(--sky);display:block;}
+.catrow{display:flex;align-items:center;gap:10px;margin:.32rem 0;font-size:13px;color:var(--ink);}
+.catrow .catname{flex:0 0 44%;}
+.catrow .bar{flex:1;}
+.catrow .catpct{flex:0 0 40px;text-align:right;font-weight:600;color:var(--faint);font-size:12px;}
+.cdemo{width:100%;border-collapse:collapse;font-size:13px;margin-top:.5rem;min-width:320px;}
+.cdemo-wrap{overflow-x:auto;}
+.cdemo,.cdemo thead,.cdemo tbody,.cdemo tr,.cdemo td,.cdemo th{box-shadow:none;}
+.cdemo{display:table;}
+.cdemo thead{display:table-header-group;}
+.cdemo tbody{display:table-row-group;}
+.cdemo tr{display:table-row;border:0;border-radius:0;padding:0;margin:0;background:none;}
+.cdemo td,.cdemo th{display:table-cell;}
+.cdemo td::before{content:none;}
+.cdemo th,.cdemo td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--rule);vertical-align:top;}
+.cdemo th{font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--faint);font-weight:700;}
+.flag-ok{color:#2d7a46;font-weight:600;}
+.flag-talk{color:#b8622f;font-weight:600;}
+.demo-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--sky-dark);background:var(--tint);padding:2px 8px;border-radius:10px;margin-left:8px;vertical-align:middle;}
+.report-wrap{margin:1.5rem 0 .5rem;text-align:center;}
+.btn-report{width:100%;max-width:340px;border:0;border-radius:10px;background:var(--sky-dark);color:#fff;font-family:inherit;font-size:15px;font-weight:600;padding:14px 28px;}
+.btn-report[disabled]{background:#c5d3db;color:#eef3f6;cursor:not-allowed;}
+.btn-json{border:1px solid var(--sky);background:var(--tint);color:var(--sky-dark);border-radius:9px;font-family:inherit;font-size:14px;font-weight:600;padding:10px 18px;cursor:pointer;}
+.persona-ta{width:100%;height:180px;margin-top:.5rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;line-height:1.4;border:1px solid var(--rule);border-radius:8px;padding:8px;color:var(--ink);background:#fbfdff;}
+.ph{background:#fff8ec;border:1px dashed #d9a441;border-radius:8px;padding:8px 11px;font-size:12.5px;color:#8a5200;font-style:italic;margin:.5rem 0;}
+.need{border-color:#d9534f !important;box-shadow:0 0 0 3px rgba(217,83,79,.18);}
+.gate-msg{display:none;color:#b02a25;background:#fdecec;border:1px solid #f3c9c7;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;margin:.6rem 0;}
 
 /* ═══════════════════════ MOBILE ═══════════════════════ */
 /* Desktop rules above are untouched. These only apply at ≤820px:
@@ -93,8 +154,8 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
  .opt input{width:20px;height:20px;flex:0 0 auto;margin-top:2px;}
  .opt .spec{font-size:16px;min-width:0;width:100%;margin-left:0;flex:1 1 100%;}
  .ms-panel{position:static;min-width:0;width:100%;box-shadow:none;margin-top:6px;}
- .ms-panel label{padding:9px 6px;font-size:15px;}
- .ms-panel input{width:19px;height:19px;}
+ .ms-panel label{padding:8px 6px;font-size:15px;}
+ .ms-panel input{flex:0 0 auto;width:18px;height:18px;min-height:0;margin-top:2px;}
  .cat-h{padding:15px 16px;}
  .sub-h{padding:14px 15px;}
  .addrow{width:100%;padding:13px 14px;font-size:14px;}
@@ -120,6 +181,8 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
  td.rh::before{content:none;}
  td.rh .subt{display:block;font-weight:400;margin-top:3px;}
  td select,td input{flex:1 1 auto;width:auto;min-height:44px;padding:10px 10px;font-size:16px;}
+ #q9 td{display:block;}
+ #q9 td::before{display:block;flex:none;margin-bottom:6px;}
  td .ms{flex:1 1 auto;}
  td .ms-btn{width:100%;}
 }
@@ -138,23 +201,23 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
   <div class="sech">Tell us why you are here</div>
   <div class="subhd">Providing your background information allows you to get started and receive your free assessment.</div>
 
-  <!-- Replace YOUR_FORMSPREE_ID in the action below with your real Formspree endpoint -->
-  <form id="intakeForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+  <!-- Formspree endpoint -->
+  <form id="intakeForm" action="https://formspree.io/f/xljdbzjn" method="POST">
 
   <div class="start">
     <div class="grid">
-      <div><span class="lbl">First name</span><input class="txt" placeholder="First name"></div>
-      <div><span class="lbl">Last name</span><input class="txt" placeholder="Last name"></div>
+      <div><span class="lbl">First name</span><input class="txt" name="first_name" placeholder="First name"></div>
+      <div><span class="lbl">Last name</span><input class="txt" name="last_name" placeholder="Last name"></div>
     </div>
-    <div style="margin-top:.7rem;"><span class="lbl">Email</span><input class="txt" placeholder="you@email.com"></div>
+    <div style="margin-top:.7rem;"><span class="lbl">Email</span><input class="txt" name="email" placeholder="you@email.com"></div>
   </div>
 
   <div class="q">
     <div class="q-h">1.  I’m seeking assistance for…</div><div class="q-tag">Select all that apply</div>
     <div class="opts">
-      <label class="opt"><input type="checkbox" name="q1"> An aging parent or loved one</label>
-      <label class="opt"><input type="checkbox" name="q1"> Myself — planning my own care</label>
-      <label class="opt"><input type="checkbox" name="q1"> Our own life planning &amp; keeping our children in the loop</label>
+      <label class="opt"><input type="checkbox" name="care_for[]" value="An aging parent or loved one"> An aging parent or loved one</label>
+      <label class="opt"><input type="checkbox" name="care_for[]" value="Myself — planning my own care"> Myself — planning my own care</label>
+      <label class="opt"><input type="checkbox" name="care_for[]" value="Life planning for me & my spouse/partner, sharing documents and information with our children"> Life planning for me &amp; my spouse/partner, sharing documents and information with our children</label>
     </div>
   </div>
 
@@ -164,73 +227,75 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
   <div class="q">
     <div class="q-h">2.  My relationship to this person is…</div><div class="q-tag">Select one</div>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q2"> Myself</label>
-      <label class="opt"><input type="radio" name="q2"> Son / Daughter</label>
-      <label class="opt"><input type="radio" name="q2"> Son / Daughter-in-law</label>
-      <label class="opt"><input type="radio" name="q2"> Sibling</label>
-      <label class="opt"><input type="radio" name="q2"> Friend</label>
-      <label class="opt"><input type="radio" name="q2"> Other relative (aunt, cousin…)</label>
-      <label class="opt"><input type="radio" name="q2"> Trustee, or someone entrusted with their care</label>
+      <label class="opt"><input type="radio" name="relationship" value="Myself"> Myself</label>
+      <label class="opt"><input type="radio" name="relationship" value="Son / Daughter"> Son / Daughter</label>
+      <label class="opt"><input type="radio" name="relationship" value="Son / Daughter-in-law"> Son / Daughter-in-law</label>
+      <label class="opt"><input type="radio" name="relationship" value="Sibling"> Sibling</label>
+      <label class="opt"><input type="radio" name="relationship" value="Friend"> Friend</label>
+      <label class="opt"><input type="radio" name="relationship" value="Other relative (aunt, cousin…)"> Other relative (aunt, cousin…)</label>
+      <label class="opt"><input type="radio" name="relationship" value="Trustee, or someone entrusted with their care"> Trustee, or someone entrusted with their care</label>
     </div>
   </div>
 
   <div class="q">
     <div class="q-h">3.  Who is in need of care?</div><div class="q-tag">Select all that apply</div>
     <div class="opts">
-      <label class="opt"><input type="checkbox" name="q4"> My mother and father</label>
-      <label class="opt"><input type="checkbox" name="q4"> One of my parents</label>
-      <label class="opt"><input type="checkbox" name="q4"> My in-laws</label>
-      <label class="opt"><input type="checkbox" name="q4"> One in-law</label>
-      <label class="opt"><input type="checkbox" name="q4"> Other relative</label>
-      <label class="opt"><input type="checkbox" name="q4"> Other relationship</label>
+      <label class="opt"><input type="checkbox" name="who_needs_care[]" value="My mother and father"> My mother and father</label>
+      <label class="opt"><input type="checkbox" name="who_needs_care[]" value="One of my parents"> One of my parents</label>
+      <label class="opt"><input type="checkbox" name="who_needs_care[]" value="My in-laws"> My in-laws</label>
+      <label class="opt"><input type="checkbox" name="who_needs_care[]" value="One in-law"> One in-law</label>
+      <label class="opt"><input type="checkbox" name="who_needs_care[]" value="Other relative"> Other relative</label>
+      <label class="opt"><input type="checkbox" name="who_needs_care[]" value="Other relationship"> Other relationship</label>
     </div>
   </div>
 
   <div class="q">
     <div class="q-h">4.  Decisions regarding care will be made by…</div><div class="q-tag">Select one</div>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q5"> Me, as sole decision-maker</label>
-      <label class="opt"><input type="radio" name="q5"> My spouse / partner and I, together</label>
-      <label class="opt"><input type="radio" name="q5"> My spouse / partner and I, with a circle of family &amp; trusted resources</label>
-      <label class="opt"><input type="radio" name="q5"> My spouse and I, each for our own family members</label>
+      <label class="opt"><input type="radio" name="decision_maker" value="Me, as sole decision-maker"> Me, as sole decision-maker</label>
+      <label class="opt"><input type="radio" name="decision_maker" value="My spouse / partner and I, together"> My spouse / partner and I, together</label>
+      <label class="opt"><input type="radio" name="decision_maker" value="My spouse / partner and I, with a circle of family & trusted resources"> My spouse / partner and I, with a circle of family &amp; trusted resources</label>
+      <label class="opt"><input type="radio" name="decision_maker" value="My spouse and I, each for our own family members"> My spouse and I, each for our own family members</label>
     </div>
   </div>
 
   <div class="q">
-    <div class="q-h">5.  Where do you and your loved one(s) live?</div><div class="q-tag">Both locations</div>
+    <div class="q-h">5.  Where do you and your loved one/care recipient live?</div><div class="q-tag">Both locations</div>
     <div style="max-width:520px;">
       <span class="lbl">You</span>
-      <div class="grid" style="margin-bottom:.6rem;"><div><input class="txt" placeholder="City"></div><div style="max-width:130px;"><input class="txt" placeholder="State"></div></div>
-      <span class="lbl">Loved one</span>
-      <div class="grid"><div><input class="txt" placeholder="City"></div><div style="max-width:130px;"><input class="txt" placeholder="State"></div></div>
+      <div class="grid" style="margin-bottom:.6rem;"><div style="max-width:130px;"><select class="txt state-sel" name="your_state"></select></div><div style="max-width:130px;"><input class="txt" name="your_zip" placeholder="Zip"></div></div>
+      <span class="lbl">Loved one/Care recipient</span>
+      <div class="grid"><div style="max-width:130px;"><select class="txt state-sel" name="loved_one_state"></select></div><div style="max-width:130px;"><input class="txt" name="loved_one_zip" placeholder="Zip"></div></div>
     </div>
   </div>
 
   <div class="q">
-    <div class="q-h">6.  What is your loved one’s current living situation?</div><div class="q-tag">Select one</div>
+    <div class="q-h">6.  What is your loved one/care recipient’s current living situation?</div><div class="q-tag">Select one</div>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q8"> Independent (rent / own / condo)</label>
-      <label class="opt"><input type="radio" name="q8"> Living independently with an aide</label>
-      <label class="opt"><input type="radio" name="q8"> Independent living facility</label>
-      <label class="opt"><input type="radio" name="q8"> Assisted living facility</label>
-      <label class="opt"><input type="radio" name="q8"> Memory care facility</label>
+      <label class="opt"><input type="radio" name="living_situation" value="Independent at Home"> Independent at Home</label>
+      <label class="opt"><input type="radio" name="living_situation" value="At Home With Caregiver"> At Home With Caregiver</label>
+      <label class="opt"><input type="radio" name="living_situation" value="With me/us at home"> With me/us at home</label>
+      <label class="opt"><input type="radio" name="living_situation" value="With another relative"> With another relative</label>
+      <label class="opt"><input type="radio" name="living_situation" value="Independent living facility"> Independent living facility</label>
+      <label class="opt"><input type="radio" name="living_situation" value="Assisted living facility"> Assisted living facility</label>
+      <label class="opt"><input type="radio" name="living_situation" value="Memory care facility"> Memory care facility</label>
     </div>
   </div>
 
   <div class="q">
     <div class="q-h">7.  Your EXISTING support network — who, where, and how they support</div><div class="q-tag">Add rows as needed to describe your support network</div>
     <table id="q9">
-      <thead><tr><th style="width:30%;">Who (supporter type)</th><th style="width:26%;">City, State</th><th>How they support</th></tr></thead>
+      <thead><tr><th style="width:30%;">Who (supporter type)</th><th style="width:26%;">Location</th><th>How they support</th></tr></thead>
       <tbody></tbody>
     </table>
     <button type="button" class="addrow" onclick="addNet()">+ Add someone</button>
   </div>
 
   <!-- ══ SECTION 2 ══ -->
-  <div class="eyebrow">HOW CAN WE HELP?</div>
-  <div class="sech">What matters most, and what to explore</div>
-  <div class="q-h" style="margin-top:1rem;">What matters most to you now?</div>
-  <div class="intro">Pleaides provides customization to manage what matters most to you now, and grows with your future needs. Let us know what is more important now:</div>
+  <div class="sech" id="whatMatters">How can we help and what matters most?</div>
+  <div class="gate-msg" id="gateMsg"></div>
+  <div class="q-h" style="margin-top:1rem;">How can Pleaides help?</div>
+  <div class="intro">Pleaides provides easy to use tools, with customization to reflect your needs and concerns to help manage what matters most to you now, and grows with your future needs. Let us know what is more important now:</div>
   <table>
     <thead><tr><th style="width:66%;">Area</th><th>Importance</th></tr></thead>
     <tbody id="step1"></tbody>
@@ -259,18 +324,30 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
 
   <!-- ══ C. QUALITY OF LIFE ══ -->
   <div class="cat" id="cat2"><div class="cat-h" onclick="toggleCat(2)"><span class="cat-name">Aligning Quality of Life Preferences</span><span class="chev">▾</span></div><div class="cat-body">
-  <div class="intro">As a caregiver you have the best of intentions for your loved ones, but often elders and their supporters see future happiness differently. List what you feel is important. Subscribers are able to send this survey to elders entering a new phase of life, family members and others involved in care, to assess where alignment exists, and where there may be gaps.</div>
-  <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Living situation</div>
+  <div class="intro">As a caregiver you have the best of intentions, but often loved ones/care recipients and their supporters see future happiness differently. List what you feel is important. Subscribers are able to send this survey to loved ones entering a new phase of life, family members and others involved in care, to assess where alignment exists, and where there may be gaps.</div>
+  <div style="border:1px solid var(--rule);border-radius:10px;background:var(--tint);padding:14px 16px;margin:.4rem 0 1.1rem;">
+    <div style="font-family:var(--serif);color:var(--sky-dark);font-size:15px;margin-bottom:.4rem;">How to answer this section</div>
+    <ul style="margin:0;padding-left:1.1rem;font-size:13px;line-height:1.5;color:var(--ink);">
+      <li style="margin-bottom:.35rem;"><b>Answer for the loved one or the person receiving care.</b> Choose what you believe they want, based on your own understanding of their wishes, not what you would choose for yourself or what feels most practical. If you are planning your own care, answer for yourself.</li>
+      <li style="margin-bottom:.35rem;"><b>Current vs. future.</b> &ldquo;Current&rdquo; is how things are today. &ldquo;Future&rdquo; is what you believe they would want if their needs change, for example if living alone or driving were no longer safe.</li>
+      <li style="margin-bottom:.35rem;"><b>Go with your best understanding.</b> If you are not sure what your loved one would say, give your best guess or leave the question blank. Gaps are useful: they show where a conversation would help.</li>
+      <li><b>There are no right answers.</b> Others in the circle of care, and your loved one/care recipient, can complete this same section later, so you can see where your views line up and where they differ.</li>
+    </ul>
+  </div>
+
+  <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Where would your loved one/care recipient prefer to live, now and as their needs change?</div>
   <table><thead><tr><th style="width:40%;">What Matters Most?</th><th>Current Preference</th><th>Future Preference</th></tr></thead><tbody id="cliv"></tbody></table>
-  <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Care preferences- select as many as apply</div>
+  <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Who would your loved one/care recipient be comfortable receiving day-to-day help from?</div>
   <table><thead><tr><th style="width:40%;">What Matters Most?</th><th>Current Preference</th><th>Future Preference</th></tr></thead><tbody id="ccare"></tbody></table>
   <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Financial values &amp; legacy</div>
-  <table><thead><tr><th style="width:40%;">Prompt</th><th>Current Preference</th><th>Future Preference</th></tr></thead><tbody id="cfin"></tbody></table>
+  <div class="note">Answer with what you know of your loved one/care recipient’s priorities. You do not need account details or amounts.</div>
+  <table><thead><tr><th style="width:60%;">Prompt</th><th>Select</th></tr></thead><tbody id="cfin"></tbody></table>
   <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Activities</div>
-  <div class="note">Let us know which activites are of most interest whether living indepdently or in a facility.</div>
+  <div class="note">Which activities matter most to your loved one/care recipient, whether they live independently or in a facility? Rate them as you believe they would.</div>
   <table><thead><tr><th style="width:66%;">Activities</th><th>Priority</th></tr></thead><tbody id="cacts"></tbody></table>
   <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Alignment and future planning</div>
-  <table><thead><tr><th style="width:74%;">Prompt</th><th>Yes / No</th></tr></thead><tbody id="cval"></tbody></table>
+  <div class="note">These two questions are about you: how well your view matches the view of your loved one/care recipient and others in the circle of care.</div>
+  <table><thead><tr><th style="width:55%;">Prompt</th><th>Answer</th></tr></thead><tbody id="cval"></tbody></table>
 
   </div></div>
 
@@ -288,74 +365,204 @@ td select,td input{padding:6px 8px;font-size:12.5px;}
   <div class="cat" id="cat4"><div class="cat-h" onclick="toggleCat(4)"><span class="cat-name">End of Life Planning</span><span class="chev">▾</span></div><div class="cat-body">
   <div class="intro">As caregivers there is no control over end of life, but establishing clarity on preferences creates alignment amongst the circle of care. Please list where preferences are clear or where there is need for future discussion.</div>
   <table>
-    <thead><tr><th style="width:52%;">Awareness of Wishes For:</th><th>Please Select</th></tr></thead>
+    <thead><tr><th style="width:44%;">Awareness of Wishes For:</th><th>Please Select</th><th>Communicated or included in your will?</th></tr></thead>
     <tbody id="eol"></tbody>
   </table>
   </div></div>
 
   </div><!-- /#intakeBody -->
 
-  <!-- FORM 2 — Q1 option 3 ("Our own life planning…"). Placeholder for now; real questionnaire to be built.
-       Shown when option 3 is checked; appears after Form 1 when both are selected. -->
+  <!-- FORM 2 — LIFE / FAMILY PLANNING. Shown when Q1 option 2 ("Myself — planning my own care") or option 3 ("Life planning for me & my spouse/partner…") is checked; appears after Form 1 if an elder-care option is also selected. -->
   <div id="secondForm" style="display:none;">
-    <div class="eyebrow">Section 2</div>
-    <div class="sech">Planning for yourselves &amp; keeping your children in the loop</div>
-    <div class="subhd">A separate questionnaire for planning your own future while keeping your children in the loop. This section is coming soon — placeholder for now.</div>
+    <div class="eyebrow">Life Planning</div>
+    <div class="sech">Planning for yourself &amp; your beneficiaries</div>
+    <div class="subhd">This questionnaire is for planning your own future and reducing future complexity for your beneficiaries, and includes making sure your documents, wishes and intent are clear. No answer is required, but the more detailed the response the more accurate your assessment.</div>
+
+    <div class="q">
+      <div class="q-h">In the event of an unexpected event, future care will be by&hellip;</div><div class="q-tag">Select one</div>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="fp_care_by" value="My spouse"> My spouse</label>
+        <label class="opt"><input type="radio" name="fp_care_by" value="Our children"> Our children</label>
+        <label class="opt"><input type="radio" name="fp_care_by" value="Other relatives, friends or other supporters"> Other relatives, friends or other supporters</label>
+        <label class="opt"><input type="radio" name="fp_care_by" value="A 3rd party"> A 3rd party</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="q-h">Where is your primary place of residence?</div><div class="q-tag">You can add additional residences and beneficiaries below</div>
+      <div style="max-width:520px;">
+        <span class="lbl">You</span>
+        <div class="grid" style="margin-bottom:.8rem;"><div style="max-width:130px;"><select class="txt state-sel" name="fp_your_state"></select></div><div style="max-width:130px;"><input class="txt" name="fp_your_zip" placeholder="Zip"></div></div>
+        <span class="lbl">Additional residences</span>
+        <table id="fp_res_t"><thead><tr><th style="width:50%;">State</th><th>Zip</th></tr></thead><tbody></tbody></table>
+        <button type="button" class="addrow" onclick="addFpRes()">+ Add a residence</button>
+        <div style="height:1rem;"></div>
+        <span class="lbl">Beneficiaries / Future caregivers</span>
+        <table id="fp_ben_t"><thead><tr><th style="width:50%;">State</th><th>Zip</th></tr></thead><tbody></tbody></table>
+        <button type="button" class="addrow" onclick="addFpBen()">+ Add a beneficiary</button>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="q-h">Your beneficiary and/or care network</div><div class="q-tag">Add rows as needed to describe your support network</div>
+      <table id="fp_net"><thead><tr><th style="width:30%;">Who (supporter type)</th><th style="width:26%;">Location</th><th>How they support</th></tr></thead><tbody></tbody></table>
+      <button type="button" class="addrow" onclick="addFpNet()">+ Add someone</button>
+    </div>
+
+    <div class="sech" id="fpMatters">How can we help and what matters most?</div>
+    <div class="q-h" style="margin-top:1rem;">How can Pleaides help?</div>
+    <div class="intro">Pleaides provides easy to use tools, with customization to reflect your needs and concerns to help manage what matters most to you now, and grows with your future needs. Let us know what is more important now:</div>
+    <table><thead><tr><th style="width:66%;">Area</th><th>Importance</th></tr></thead><tbody id="fp_step1"></tbody></table>
+    <div class="subhd" style="margin-top:1.3rem;">Choose which categories you would like included in your initial assessment</div>
+    <div class="note">Select all that apply.</div>
+    <div class="opts" id="fp_cats"></div>
+    <div class="intro" style="margin:1.1rem 0 1.4rem;">Click on each section to view documents by category. Completing each section is not required, but will result in a more comprehensive overall assessment.</div>
+
+    <div class="cat" id="fpcat0"><div class="cat-h" onclick="toggleFpCat(0)"><span class="cat-name">Document and Organization Management</span><span class="chev">&#9662;</span></div><div class="cat-body">
+      <div class="intro">Most beneficiaries find that identifying the existence or location of documents and various online accounts can be a time-consuming task. Pleaides provides the ability to track gaps in organization and assign roles to address these gaps. Documents and account access information can be stored securely in your dashboard, or stored offline with the ability to easily view contact information. For couples it is helpful to fill out separately to assure alignment and shared information.</div>
+      <div id="fp_docs"></div>
+    </div></div>
+
+    <div class="cat" id="fpcat1"><div class="cat-h" onclick="toggleFpCat(1)"><span class="cat-name">Circle of Care Creation and Coordination</span><span class="chev">&#9662;</span></div><div class="cat-body">
+      <div class="note">Tell us who you anticipate to care for you following unexpected events.</div>
+      <table><thead><tr><th style="width:40%;">Area</th><th>Currently managed by:</th><th>Preferred future method of help:</th></tr></thead><tbody id="fp_bcare"></tbody></table>
+    </div></div>
+
+    <div class="cat" id="fpcat2"><div class="cat-h" onclick="toggleFpCat(2)"><span class="cat-name">Aligning Quality of Life Preferences</span><span class="chev">&#9662;</span></div><div class="cat-body">
+      <div class="intro">As a couple you may view future happiness differently. List what you feel is important. Subscribers are able to send this survey to loved ones and beneficiaries who may be in charge of future care.</div>
+  <div style="border:1px solid var(--rule);border-radius:10px;background:var(--tint);padding:14px 16px;margin:.4rem 0 1.1rem;">
+    <div style="font-family:var(--serif);color:var(--sky-dark);font-size:15px;margin-bottom:.4rem;">How to answer this section</div>
+    <ul style="margin:0;padding-left:1.1rem;font-size:13px;line-height:1.5;color:var(--ink);">
+      <li style="margin-bottom:.35rem;"><b>Answer for yourself.</b> Choose what you believe you would want, not what you think your spouse/partner would choose for themselves. If you are planning together, each of you can complete this separately.</li>
+      <li style="margin-bottom:.35rem;"><b>Current vs. future.</b> &ldquo;Current&rdquo; is how things are today. &ldquo;Future&rdquo; is what you would want if your or your spouse/partner&rsquo;s needs change.</li>
+      <li style="margin-bottom:.35rem;"><b>Go with your best understanding.</b> If you are not sure, give your best answer or leave the question blank. Gaps are useful: they show where a conversation would help.</li>
+      <li><b>There are no right or wrong answers.</b> The goal is to see where your answers line up with your spouse or partner, and with your children or others you choose to be in charge of your care should something happen unexpectedly.</li>
+    </ul>
+  </div>
+      <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Where would you prefer to live, now and as your needs change?</div>
+      <table><thead><tr><th style="width:40%;">What Matters Most?</th><th>Current Preference</th><th>Future Preference</th></tr></thead><tbody id="fp_cliv"></tbody></table>
+      <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Who would you be comfortable receiving day-to-day help from?</div>
+      <table><thead><tr><th style="width:40%;">What Matters Most?</th><th>Current Preference</th><th>Future Preference</th></tr></thead><tbody id="fp_ccare"></tbody></table>
+      <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Financial values &amp; legacy</div>
+      <div class="note">Answer with what you know of your own and your beneficiaries&rsquo; priorities. You do not need account details or amounts.</div>
+      <table><thead><tr><th style="width:60%;">Prompt</th><th>Select</th></tr></thead><tbody id="fp_cfin"></tbody></table>
+      <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Activities</div>
+      <div class="note">Which activities matter most to you, whether living independently or in a facility?</div>
+      <table><thead><tr><th style="width:66%;">Activities</th><th>Priority</th></tr></thead><tbody id="fp_cacts"></tbody></table>
+      <div class="subhd" style="font-family:var(--serif);color:var(--sky-dark);font-size:17px;">Alignment and future planning</div>
+      <div class="note">These two questions are about you: how well your view matches the view of your spouse/partner, beneficiaries and others in your circle of care.</div>
+      <table><thead><tr><th style="width:55%;">Prompt</th><th>Answer</th></tr></thead><tbody id="fp_cval"></tbody></table>
+    </div></div>
+
+    <div class="cat" id="fpcat3"><div class="cat-h" onclick="toggleFpCat(3)"><span class="cat-name">Daily Living Communication Management</span><span class="chev">&#9662;</span></div><div class="cat-body">
+      <div class="intro">Pleaides&rsquo; Daily Living Communication Manager allows you to document important information and tasks that can be assigned, and/or viewed by others based on permissions you create. Tasks can be organized by each user&rsquo;s location, so tasks are appropriately assigned (example: someone in another state cannot perform errands).</div>
+      <table><thead><tr><th style="width:24%;">Task</th><th>Please specify current management</th><th>Are Shared Notes and an Online Calendar helpful for this task?</th><th>Would you like to assign this task to others?</th><th>Would you like to be notified when a task is accepted?</th></tr></thead><tbody id="fp_elog"></tbody></table>
+    </div></div>
+
+    <div class="cat" id="fpcat4"><div class="cat-h" onclick="toggleFpCat(4)"><span class="cat-name">Estate &amp; Post-Death</span><span class="chev">&#9662;</span></div><div class="cat-body">
+      <div class="intro">Is your estate organized to avoid future legal complexities?</div>
+      <table><thead><tr><th style="width:62%;">Prompt</th><th>Select</th></tr></thead><tbody id="fp_estate"></tbody></table>
+    </div></div>
+
+    <div class="cat" id="fpcat5"><div class="cat-h" onclick="toggleFpCat(5)"><span class="cat-name">End of Life Planning</span><span class="chev">&#9662;</span></div><div class="cat-body">
+      <div class="intro">There is no control over end of life, but establishing clarity on preferences creates alignment amongst those you love. Please list where preferences are clear or where there is need for future discussion.</div>
+      <table><thead><tr><th style="width:44%;">Awareness of Wishes For:</th><th>Please Select</th><th>Communicated or included in your will?</th></tr></thead><tbody id="fp_eol"></tbody></table>
+    </div></div>
   </div>
 
   <!-- Submit — appears once a Q1 option is chosen; submits only the visible form(s) -->
   <div class="submit-wrap" id="submitWrap" style="display:none;">
-    <button type="submit" class="btn-submit">Submit</button>
-    <div class="submit-hint">You can review your answers before submitting.</div>
+    <button type="submit" class="btn-submit">See my results</button>
+    <div class="submit-hint">Review your answers, then see where things stand.</div>
   </div>
 
   </form>
+
+  <div class="results" id="resultsView" style="display:none;"></div>
 
 </div>
 <script>
 // Q9 rows
 const NETHOW=["Financial Support","Healthcare Management","Financial or Legal Management","Logistics — Errands, Driving, Appointments","Emotional Support","Care Research","Other (please specify)"];
-const NETWHO=["","Spouse","Son/Daughter","Grandchild","Friend","Aide","Other (please specify)"];
-function sel(opts){return '<select>'+opts.map(o=>'<option>'+(o||'—')+'</option>').join('')+'</select>';}
+const NETWHO=["","Spouse/Partner","Sibling","Son/Daughter","Grandchild","Friend","Aide","Other (please specify)"];
+function slug(x){return String(x).toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'').slice(0,44);}
+function sel(opts,name){return '<select'+(name?' name="'+name+'"':'')+'>'+opts.map(o=>'<option'+(o?' value="'+o.replace(/"/g,'&quot;')+'"':'')+'>'+(o||'—')+'</option>').join('')+'</select>';}
 let _ms=0;
-function multiSel(opts){const id='ms'+(_ms++);return `<div class="ms" id="${id}"><button type="button" class="ms-btn" onclick="msToggle('${id}')">Choose all that apply ▾</button><div class="ms-panel">${opts.map(o=>`<label><input type="checkbox" onchange="msSync('${id}')"> ${o}</label>`).join('')}</div></div>`;}
+function multiSel(opts,name){const id='ms'+(_ms++);return `<div class="ms" id="${id}"><button type="button" class="ms-btn" onclick="msToggle('${id}')">Choose all that apply ▾</button><div class="ms-panel">${opts.filter(function(o){return o;}).map(o=>`<label><input type="checkbox"${name?' name="'+name+'[]"':''} value="${o}" onchange="msSync('${id}')"> ${o}</label>`).join('')}</div></div>`;}
 function msToggle(id){const p=document.querySelector('#'+id+' .ms-panel');p.style.display=p.style.display==='block'?'none':'block';}
 function msSync(id){const el=document.getElementById(id);const n=el.querySelectorAll('input:checked').length;el.querySelector('.ms-btn').textContent=(n?n+' selected':'Choose all that apply')+' ▾';}
-function addNet(){const tb=document.querySelector('#q9 tbody');const tr=document.createElement('tr');tr.innerHTML='<td data-label="Who">'+sel(NETWHO)+'</td><td data-label="City, State"><input class="txt" placeholder="City, State"></td><td data-label="How they support">'+multiSel(NETHOW)+'</td>';tb.appendChild(tr);}
+let _net=0;
+var US_STATES=["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+function stateOpts(){return '<option value="">State</option>'+US_STATES.map(function(s){return '<option value="'+s+'">'+s+'</option>';}).join('');}
+function populateStates(root){(root||document).querySelectorAll('select.state-sel').forEach(function(s){ if(s.options.length===0) s.innerHTML=stateOpts(); });}
+function addNet(){
+  var r=++_net;
+  var tb=document.querySelector('#q9 tbody');
+  var tr=document.createElement('tr');
+  tr.innerHTML=
+    '<td data-label="Who">'+sel(NETWHO,'net_who_'+r)
+      +'<input class="txt spec-in" name="net_who_other_'+r+'" placeholder="Please specify" style="display:none;"></td>'
+    +'<td data-label="Location"><div class="loc-row">'
+      +'<select class="txt loc-state state-sel" name="net_state_'+r+'"></select>'
+      +'<input class="txt loc-zip" name="net_zip_'+r+'" placeholder="Zip"></div></td>'
+    +'<td data-label="How they support">'+multiSel(NETHOW,'net_how_'+r)
+      +'<input class="txt spec-in" name="net_how_other_'+r+'" placeholder="Please specify" style="display:none;"></td>';
+  tb.appendChild(tr);
+  populateStates(tr);
+  var whoSel=tr.querySelector('select[name="net_who_'+r+'"]');
+  var whoOther=tr.querySelector('input[name="net_who_other_'+r+'"]');
+  whoSel.addEventListener('change',function(){ whoOther.style.display=(whoSel.value==='Other (please specify)')?'block':'none'; });
+  var howOther=tr.querySelector('input[name="net_how_other_'+r+'"]');
+  tr.querySelectorAll('input[name="net_how_'+r+'[]"]').forEach(function(cb){
+    if(cb.value==='Other (please specify)'){ cb.addEventListener('change',function(){ howOther.style.display=cb.checked?'block':'none'; }); }
+  });
+}
 addNet();
+populateStates();
+// Documents: choosing N, Unsure, or N/A for "Existing?" fills that document's other BLANK columns with the same value (never overwrites an answer; blank/skipped documents are left alone)
+document.addEventListener('change', function(e){
+  var el=e.target;
+  if(el && el.tagName==='SELECT' && el.name && /(^|_)doc_/.test(el.name) && /_exist$/.test(el.name) && (el.value==='N'||el.value==='N/A'||el.value==='Unsure')){
+    var base=el.name.replace(/_exist$/,''), fill=el.value;
+    ['_loc','_3p'].forEach(function(sfx){
+      var s=document.querySelector('[name="'+base+sfx+'"]');
+      if(s && (s.value==='—'||s.value==='')) s.value=fill;
+    });
+  }
+});
 
 // Step 1 areas
-const AREAS=[["Document and Organization Management","assessing what is organized, where documents and online accounts are located, where passwords are stored, how organization is currently managed, where gaps are, and what needs to be done."],["Circle of Care & Coordination","building and determining your support network, who helps and how. This includes any level of support from emotional to legal authority."],["Quality of Life Preferences","bringing clarity to preferences for future living arrangements, social activities, health and wellness and independence. The goal is to create alignment amongst caregivers and loved one."],["Daily Living Management","creating, maintaining and assigning caregiver roles with an online calendar to view everything from errands, appointments, scheduled healthcare, bill payment deadlines and other tasks."],["End of Life Planning","assuring alignment on preferences and choices."]];
-const IMP=["","Need to have","Nice to have","Not a current priority"];
+const AREAS=[["Document and Organization Management","assessing what is well organized, where documents and online accounts are located, where passwords are stored, how organization is currently managed, where gaps are, and what needs to be done."],["Circle of Care & Coordination","designing and creating your support network, and identifies who helps and how. This includes any level of support from emotional to legal authority."],["Quality of Life Preferences","bringing clarity to preferences for future living arrangements, social activities, health and wellness and independence. The goal is to create alignment amongst caregivers and loved ones/care recipients."],["Daily Living Management","creating, maintaining and assigning caregiver roles with an online calendar to view everything from errands, appointments, scheduled healthcare, bill payment deadlines and other tasks."],["End of Life Planning","assuring alignment on preferences and choices."]];
+const IMP=["","Already in place","Need to have now","Need to have in the future","Nice to have/not a current priority","Not needed"];
 const CATS=["Document and Organization Management","Circle of Care Creation and Coordination","Aligning Quality of Life Preferences","Daily Living Calendar Management","End of Life Planning"];
-document.getElementById('step1').innerHTML=AREAS.map(a=>`<tr><td class="rh"><b>${a[0]}</b> <span class="subt">— ${a[1]}</span></td><td data-label="Importance">${sel(IMP)}</td></tr>`).join('');
-document.getElementById('cats').innerHTML=CATS.map((c,i)=>`<label class="opt"><input type="checkbox" name="cats" onchange="toggleMenu(${i},this.checked)"> ${c}</label>`).join('');
+document.getElementById('step1').innerHTML=AREAS.map(a=>`<tr><td class="rh"><b>${a[0]}</b> <span class="subt">— ${a[1]}</span></td><td data-label="Importance">${sel(IMP,'importance_'+slug(a[0]))}</td></tr>`).join('');
+document.getElementById('cats').innerHTML=CATS.map((c,i)=>`<label class="opt"><input type="checkbox" name="categories[]" value="${c}" onchange="toggleMenu(${i},this.checked)"> ${c}</label>`).join('');
 
 // Documents
 const DOCS={
  "Legal & Estate":["Last will & testament","Revocable living trust (+ amendments)","Irrevocable / special-needs trust","Durable financial POA","Healthcare POA / proxy","Advance directive / living will","POLST / MOLST","DNR / DNI orders","Beneficiary designations","Letter to executor / ethical will","Property deeds & vehicle titles"],
- "Financial":["Bank account inventory","Brokerage / retirement (401k, IRA, pension)","Insurance policies (life, LTC, Medigap, home, auto)","Credit cards (how many + balances — existence only)","Mortgage on a home","Rental agreements","Annuities & Social Security info","Prior-year tax returns","Master asset / net-worth list","Bills & subscriptions - credit cards, online accounts","Benefits: Medicare / VA / SSA","Digital-asset & login inventory","Debts & liabilities"],
- "Medical (summaries)":["Current medication list","History, conditions, allergies","Physician & specialist directory","Insurance cards (Medicare, Part D, Medigap)","Care plan","Cognitive / capacity assessment"],
- "Daily Living and Care Management":["Coordination of care management","Future senior living research, preferences and status","Facility admission agreement","Home-care / caregiver agreements and schedule","Contacts directory — who to call","About Me — introducing your loved one to others from their perspective","Emergency contact + EMS vital sheet","Funeral / burial pre-arrangements"],
+ "Financial":["Bank account inventory","Brokerage / retirement (401k, IRA, pension)","Insurance policies (life, LTC, Medigap, home, auto)","Credit cards (how many + balances — existence only)","Mortgage on a home","Home/Apartment rental agreements","Annuities & Social Security info","Prior-year tax returns","Master asset / net-worth list","Bills & subscriptions - credit cards, online accounts","Third party services and billing arrangements (lawn service, cleaning services, etc.)","Benefits: Medicare / VA / SSA","Digital-asset & login inventory","Other debts & liabilities"],
+ "Medical (summaries)":["Current medication list","Locations/where medications are kept","History, conditions, allergies","Physician & specialist directory","Insurance cards (Medicare, Part D, Medigap)","Care plan","List of upcoming medical appointments – when, where, what practitioner","Cognitive / capacity assessment"],
+ "Daily Living and Care Management":["Coordination of care management","Future senior living research, preferences and status","Facility admission agreement","Home-care / caregiver agreements and schedule","Contacts directory — who to call","About Me — introducing yourself, a loved one, or a care recipient","Emergency contacts + EMS vital sheet","Funeral / burial pre-arrangements"],
  "Identity & Vital":["Birth certificate","Marriage / divorce certificates","Social Security card","Passport / ID","Military discharge (DD-214)","Citizenship / naturalization"]
 };
-const yn3=()=>sel(["","Y","N","NA"]);
+const yn3=(name)=>sel(["","Y","N","Unsure","N/A"],name);
 document.getElementById('docs').innerHTML=Object.entries(DOCS).map(([cat,items],ci)=>`
   <div class="sub" id="sub${ci}"><div class="sub-h" onclick="toggleSub(${ci})"><span>${cat}</span><span class="chev">▾</span></div><div class="sub-body">
-  <table><thead><tr><th style="width:48%;">Document</th><th>Existing</th><th>Location Known</th><th>Professionally Managed by 3rd Party</th></tr></thead>
-  <tbody>${items.map(it=>`<tr><td class="rh">${it}</td><td data-label="Existing">${yn3()}</td><td data-label="Location Known">${yn3()}</td><td data-label="3rd-Party Managed">${yn3()}</td></tr>`).join('')}</tbody></table>
+  <table><thead><tr><th style="width:48%;">Document</th><th style="width:18%;">Existing</th><th style="width:17%;">Location Known</th><th style="width:17%;">Professionally Managed by 3rd Party</th></tr></thead>
+  <tbody>${items.map(it=>`<tr><td class="rh">${it}</td><td data-label="Existing">${yn3('doc_'+slug(cat)+'_'+slug(it)+'_exist')}</td><td data-label="Location Known">${yn3('doc_'+slug(cat)+'_'+slug(it)+'_loc')}</td><td data-label="3rd-Party Managed">${yn3('doc_'+slug(cat)+'_'+slug(it)+'_3p')}</td></tr>`).join('')}</tbody></table>
   </div></div>`).join('');
 
 // B Circle of Care
-const LOAD=["","Elder self-managed","I manage myself","Mostly me with some help","Shared equally","Mostly others","No one yet"];
+const LOAD=["","Loved one self-managed","I manage myself","Mostly me with some help","Shared equally","Mostly others","No one yet"];
 const SUPPORT=["","Financial","Logistics","Physical","Emotional"];
 const AUTH=["","In place","In progress","Not yet","Don’t know"];
 const BROWS=["Finances & bills (utilities, subscriptions, credit cards, etc.)","Medical care & appointments","Daily living (driving, cooking, errands)","Social — holidays, etc.","Retirement & Healthcare — Social Security & Medicare management"];
 const BAUTH=["Financial power of attorney","Healthcare POA / proxy","Guardianship / conservatorship (if any)"];
-const TP=["","Our own network","A trusted 3rd party (attorney, trustee, etc.)"];
+const TP=["","Our own network","A trusted 3rd party (attorney, trustee, etc.)","N/A"];
 document.getElementById('bcare').innerHTML=
- BROWS.map(r=>`<tr><td class="rh">${r}</td><td data-label="Currently managed by">${sel(LOAD)}</td><td data-label="Preferred future method">${sel(LOAD)}</td></tr>`).join('')+
- BAUTH.map(r=>`<tr><td class="rh">${r}</td><td data-label="Currently managed by">${sel(TP)}</td><td data-label="Preferred future method">${sel(TP)}</td></tr>`).join('');
+ BROWS.map(r=>`<tr><td class="rh">${r}</td><td data-label="Currently managed by">${sel(LOAD,'care_'+slug(r)+'_now')}</td><td data-label="Preferred future method">${sel(LOAD,'care_'+slug(r)+'_future')}</td></tr>`).join('')+
+ BAUTH.map(r=>`<tr><td class="rh">${r}</td><td data-label="Currently managed by">${sel(TP,'auth_'+slug(r)+'_now')}</td><td data-label="Preferred future method">${sel(TP,'auth_'+slug(r)+'_future')}</td></tr>`).join('');
 
 // C Quality of Life
 const LIV=["","Age in place in own home","Independent at home with caregiver","Independent living facility","Assisted living facility","Memory care","Move in with family member"];
@@ -365,41 +572,294 @@ const YN=["","Yes","No"];
 const VSU=["","Very important","Somewhat important","Not important","Unsure"];
 const COST1=["","Social Security","Investments and savings","Long-Term Care Insurance","Financial assistance from family and friends","Available Public Aide"];
 const COST2=["","Social Security","Investments and savings","Long-Term Care Insurance","Financial assistance from family and friends","Public Aide"];
-const cliv=[["Current arrangement (from Q8)",["","Autofill from Q8"],LIV],["Preferred next:",LIV,LIV],["Importance of living in a specific town or state",NNN,NNN],["Willingness to move to be near family or specific loved ones",NNN,NNN],["Importance of being near my circle of friends",NNN,NNN]];
-const ccare=[["Preferences for day-to-day care:",CARE,CARE],["Comfort with outside caregivers in the home",YN,YN],["Availability of community & social services (rides, meals)",YN,YN],["Long-term-care insurance or funding plan?",YN,YN],["Willingness or abiliy to live with family",YN,YN]];
-const cfin=[["How important is financial inheritance?",VSU,VSU],["How are living and health care costs currently managed (select all that apply)",COST1,COST2],["Are there assests, such as real estate, art or other valuables that are intended to pass down?",YN,YN]];
-const qRow=(r)=>`<tr><td class="rh">${r[0]}</td><td data-label="Current Preference">${sel(r[1])}</td><td data-label="Future Preference">${sel(r[2])}</td></tr>`;
-document.getElementById('cliv').innerHTML=cliv.map(qRow).join('');
-document.getElementById('ccare').innerHTML=ccare.map(qRow).join('');
-document.getElementById('cfin').innerHTML=cfin.map(qRow).join('');
+const cliv=[["Current arrangement (from Q6)","Q8AUTO",LIV],["Next stage living arrangements",LIV,null,"Preference"],["Importance of living in a specific town or state",NNN,NNN],["Interest in moving to be near family or specific loved ones",NNN,NNN],["Importance of being near a circle of friends",NNN,NNN]];
+const ccare=[["Preferences for day-to-day care:",CARE,CARE],["Comfort with outside caregivers in the home",YN,YN],["Comfort with community-based services",YN,YN],["Long-term-care insurance or funding plan?",YN,null,"Select"],["Willingness or ability to live with family",YN,YN]];
+const cfin=[["How important is financial inheritance?",VSU],["How are living and health care costs currently managed?",COST1,"multi"],["Are there assests, such as real estate, art or other valuables that are intended to pass down?",YN]];
+const qRow=(r,pre)=>{
+  if(r[2]===null) return `<tr><td class="rh">${r[0]}</td><td colspan="2" data-label="${r[3]||'Select'}">${sel(r[1],pre+'_'+slug(r[0])+'_pref')}</td></tr>`;
+  var cur = (r[1]==='Q8AUTO')
+    ? `<input class="txt q8auto" name="${pre}_current_arrangement" readonly placeholder="Autofills from your living-situation answer">`
+    : sel(r[1],pre+'_'+slug(r[0])+'_now');
+  return `<tr><td class="rh">${r[0]}</td><td data-label="Current Preference">${cur}</td><td data-label="Future Preference">${sel(r[2],pre+'_'+slug(r[0])+'_future')}</td></tr>`;
+};
+const sRow=(r,pre)=>`<tr><td class="rh">${r[0]}</td><td data-label="Select">${sel(r[1],pre+'_'+slug(r[0])+'_pref')}</td></tr>`;
+document.getElementById('cliv').innerHTML=cliv.map(r=>qRow(r,'living')).join('');
+(function(){function syncQ8(){var t=document.querySelector('input[name="living_current_arrangement"]');if(!t)return;var r=document.querySelector('input[name="living_situation"]:checked');t.value=r?r.value:'';}document.querySelectorAll('input[name="living_situation"]').forEach(function(x){x.addEventListener('change',syncQ8);});syncQ8();})();
+document.getElementById('ccare').innerHTML=ccare.map(r=>qRow(r,'care')).join('');
+document.getElementById('cfin').innerHTML=cfin.map(function(r){return r[2]==='multi'?`<tr><td class="rh">${r[0]}</td><td data-label="Select all that apply">${multiSel(r[1],'finance_'+slug(r[0]))}</td></tr>`:sRow(r,'finance');}).join('');
 const ACTS=["Friends & planned social outings","Group activities (meals, book clubs, movie groups, cards, board games, trivia, current events discussions, etc)","Ability to drive and accessibility to parking","Proximity to urban area or downtown center","Travel","Arts & culture","Independence","Access to Fitness & Wellness activities","Faith (access to worship or discussion groups)","Proximity to family","Proximity to quality healthcare","Accessible transportation to selections above"];
-document.getElementById('cacts').innerHTML=ACTS.map(a=>`<tr><td class="rh">${a}</td><td data-label="Priority">${sel(VSU)}</td></tr>`).join('');
-document.getElementById('cval').innerHTML=[["Do you feel your answers align with your loved one or circle of care?"],["Does your loved one manage advice well — for instance, being open to a discussion of when it is no longer safe to drive?"]].map(v=>`<tr><td class="rh">${v[0]}</td><td data-label="Yes / No">${sel(YN)}</td></tr>`).join('');
+document.getElementById('cacts').innerHTML=ACTS.map(a=>`<tr><td class="rh">${a}</td><td data-label="Priority">${sel(VSU,'activity_'+slug(a))}</td></tr>`).join('');
+document.getElementById('cval').innerHTML=[["Do you feel your answers align with your loved one or circle of care?",["","Yes","Some","No"]],["How are successful conversations on difficult topics managed among your circle of care? An example would be determining when it is no longer safe to drive.",["","Well- we openly discuss","Varied- depends on the topic","Not Well- I don't feel heard"]]].map((v,i)=>`<tr><td class="rh">${v[0]}</td><td data-label="Answer">${sel(v[1],'align_'+(i+1))}</td></tr>`).join('');
 
 // E Logistics
 const ETASKS=["Rides & transportation","Notes and Updates","Observed changes (example: memory, walking ability, etc.)","General driving and errands","Transportation to medical appts.","Medical appointment management","Medication management","Meals & grocery management","Bill payments and online account management","Regular visits / check-ins","Holiday planning and schedule","Availability to help (days, times)","Respite for the main caregiver","Home upkeep & vendors"];
 const MGMT=["","Well managed","Help needed","Not applicable"];
-document.getElementById('elog').innerHTML=ETASKS.map(t=>`<tr><td class="rh">${t}</td><td data-label="Current management">${sel(MGMT)}</td><td data-label="Notes & calendar helpful?">${sel(["","Y","N"])}</td><td data-label="Assign to others?">${sel(["","Y","N"])}</td><td data-label="Notify when accepted?">${sel(["","Y","N"])}</td></tr>`).join('');
+document.getElementById('elog').innerHTML=ETASKS.map(t=>`<tr><td class="rh">${t}</td><td data-label="Current management">${sel(MGMT,'task_'+slug(t)+'_mgmt')}</td><td data-label="Notes & calendar helpful?">${sel(["","Y","N"],'task_'+slug(t)+'_notes')}</td><td data-label="Assign to others?">${sel(["","Y","N"],'task_'+slug(t)+'_assign')}</td><td data-label="Notify when accepted?">${sel(["","Y","N"],'task_'+slug(t)+'_notify')}</td></tr>`).join('');
 
 // End of Life
 const EOLK=["","Known","Existing in Will or Trust","Not important","Not known"];
 const EOL=[["Burial vs. cremation",["","Burial","Cremation","Not important","Not known"]],["Funeral / Memorial tone & wishes",EOLK],["Medical intervention & comfort-care (DNR, hospice)",EOLK],["A contact list of friends and family to notify or who should be present at a funeral in the event of an unexpected death?",EOLK]];
-document.getElementById('eol').innerHTML=EOL.map(r=>`<tr><td class="rh">${r[0]}</td><td data-label="Please Select">${sel(r[1])}</td></tr>`).join('');
+document.getElementById('eol').innerHTML=EOL.map(r=>`<tr><td class="rh">${r[0]}</td><td data-label="Please Select">${sel(r[1],'eol_'+slug(r[0]))}</td><td data-label="Communicated or in will?">${sel(["","Yes","No"],'eol_'+slug(r[0])+'_comm')}</td></tr>`).join('');
 
 // ── Q1 routing (Select all that apply) ──
 // Options 1 or 2 → show Form 1 (the current intake).
 // Option 3 ("Our own life planning…") → show Form 2 (placeholder for now).
 // Selections are additive: pick both kinds and both forms show, one after the other.
 // The Submit button appears once any form is showing, and submits only the visible form(s).
+/* -- READINESS SCORING (A/B/D) + RESULTS -- */
+// LIVE_SUBMIT: false = demo only (compute + show results locally; do NOT post to Formspree).
+// Flip to true to also capture each submission to Formspree in the background.
+var LIVE_SUBMIT=false;
+
+// PLACEHOLDER thresholds -- tune, or replace with the exact cutoffs from index.html.
+var TIER_BANDS=[
+  {min:1.00, name:"Future Perfect",    desc:"All pieces in place",                                          cls:"tier-perfect"},
+  {min:0.75, name:"Management Stage",  desc:"Most pieces in place \u2014 use the platform to share and connect", cls:"tier-manage"},
+  {min:0.35, name:"Planning Stage",    desc:"Some pieces in place, still more to do that we identify",       cls:"tier-plan"},
+  {min:0.00, name:"Exploration Stage", desc:"Early stage",                                                   cls:"tier-explore"}
+];
+function pickTier(frac,total){ if(!total) return TIER_BANDS[3]; for(var i=0;i<TIER_BANDS.length;i++){ if(frac>=TIER_BANDS[i].min) return TIER_BANDS[i]; } return TIER_BANDS[3]; }
+function fval(name){ var el=document.querySelector('[name="'+name+'"]'); return el?el.value:''; }
+function answered(v){ return v && v!=='\u2014'; }
+
+function computeScores(){
+  var aCats=[], aExist=0, aNeeded=0, aAns=0, aTot=0, aMissing=[];
+  Object.keys(DOCS).forEach(function(cat){
+    var items=DOCS[cat], ans=0;
+    items.forEach(function(it){
+      aTot++;
+      var v=fval('doc_'+slug(cat)+'_'+slug(it)+'_exist');
+      if(answered(v)){ ans++; aAns++; if(v==='Y')aExist++; else if(v==='N'){aNeeded++; aMissing.push(it);} }
+    });
+    aCats.push({name:cat, pct: items.length?Math.round(ans/items.length*100):0});
+  });
+  var aCompletionPct=aTot?Math.round(aAns/aTot*100):0;
+  // B — Circle of care: "need for help" = managed by one person now (or no one yet) where the
+  // preferred future wants MORE hands than now. A stable existing network (or a content one-person
+  // that doesn't change) counts as in place, not a need.
+  var LOAD_LVL={"No one yet":0,"Loved one self-managed":1,"I manage myself":1,"Mostly me with some help":2,"Shared equally":3,"Mostly others":4};
+  function loadLvl(v){return LOAD_LVL.hasOwnProperty(v)?LOAD_LVL[v]:-1;}
+  var onePersonSet=["Loved one self-managed","I manage myself","Mostly me with some help","No one yet"];
+  var bAns=0,bBenefit=0,bInPlace=0,imSelf=[],lovedNow=[],lovedFuture=[];
+  BROWS.forEach(function(area){
+    var now=fval('care_'+slug(area)+'_now'), fut=fval('care_'+slug(area)+'_future');
+    if(!answered(now))return; bAns++;
+    var onePerson=onePersonSet.indexOf(now)>=0;
+    var wantsMore=answered(fut) && loadLvl(fut)>loadLvl(now);
+    if(onePerson && wantsMore) bBenefit++; else bInPlace++;
+    if(now==='I manage myself'||fut==='I manage myself') imSelf.push(area);
+    if(now==='Loved one self-managed') lovedNow.push(area);
+    if(fut==='Loved one self-managed') lovedFuture.push(area);
+  });
+  var dApp=0,dBenefit=0,dInPlace=0;
+  ETASKS.forEach(function(t){
+    var m=fval('task_'+slug(t)+'_mgmt'), asg=fval('task_'+slug(t)+'_assign');
+    if(!answered(m)||m==='Not applicable')return; dApp++;
+    if(m==='Help needed'||asg==='Yes') dBenefit++; else dInPlace++;
+  });
+  var qolVery=[],qolSomewhat=[];
+  ACTS.forEach(function(a){ var v=fval('activity_'+slug(a)); if(v==='Very important')qolVery.push(a); else if(v==='Somewhat important')qolSomewhat.push(a); });
+  var eAns=0,eComm=0;
+  EOL.forEach(function(r){ var pref=fval('eol_'+slug(r[0])); if(!answered(pref))return; eAns++; if(fval('eol_'+slug(r[0])+'_comm')==='Yes') eComm++; });
+  var inPlace=aExist+bInPlace+dInPlace+eComm;
+  var totalPieces=(aExist+aNeeded)+bAns+dApp+eAns;
+  var frac=totalPieces?inPlace/totalPieces:0;
+  return {aCats:aCats,aCompletionPct:aCompletionPct,aExist:aExist,aNeeded:aNeeded,
+          bAns:bAns,bBenefit:bBenefit,bInPlace:bInPlace,dApp:dApp,dBenefit:dBenefit,dInPlace:dInPlace,
+          aMissing:aMissing,imSelf:imSelf,lovedNow:lovedNow,lovedFuture:lovedFuture,qolVery:qolVery,qolSomewhat:qolSomewhat,
+          eAns:eAns,eComm:eComm,
+          frac:frac,totalPieces:totalPieces,tier:pickTier(frac,totalPieces)};
+}
+function scoreHead(title,valueText,demo){ return '<div class="score-card"><div class="score-h"><span class="score-t">'+title+(demo?'<span class="demo-tag">Demo</span>':'')+'</span>'+(valueText?'<span class="score-v">'+valueText+'</span>':'')+'</div>'; }
+
+function renderResults(s){
+  var t=s.tier, h='';
+  function ul(items){return '<ul class="res-ul">'+items.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';}
+  h+='<div class="res-title">Your results</div>';
+  h+='<div class="res-intro">Thank you for your responses. Below are your overall results and potential next steps. Pleaides subscribers have automated dashboards created from the responses that allow for:'
+    +ul(['Upload or store locations of important documents','Create a custom circle of care','Assign roles and manage the care calendar','Allow caregivers access to view the calendar and share notes','Find service providers in the Care Marketplace'])
+    +'</div>';
+  h+='<div class="tier-card '+t.cls+'"><div class="tier-stage">Your stage</div><div class="tier-name">'+t.name+'</div><div class="tier-desc">'+t.desc+'</div><div class="tier-track"><div class="tier-fill" style="width:'+Math.max(6,Math.round(s.frac*100))+'%"></div></div></div>';
+
+  // Documents — what does not yet exist
+  h+=scoreHead('Documents &amp; organization','');
+  if(s.aMissing.length){
+    h+='<div class="res-p"><b>'+s.aMissing.length+'</b> document'+(s.aMissing.length===1?'':'s')+' you\u2019ve marked as not yet in place:</div>'+ul(s.aMissing);
+  } else {
+    h+='<div class="res-p" style="color:var(--faint)">No documents marked as not in place yet.</div>';
+  }
+  h+='<div class="res-sub2">Per-category progress</div>';
+  s.aCats.forEach(function(c){ h+='<div class="catrow"><span class="catname">'+c.name+'</span><span class="bar"><span class="bar-fill" style="width:'+c.pct+'%"></span></span><span class="catpct">'+c.pct+'%</span></div>'; });
+  h+='</div>';
+
+  // Circle of care
+  h+=scoreHead('Circle of care','');
+  h+='<div class="res-p">Pleaides offers the ability to create and manage trusted caregivers and assign roles. Your results indicate where this would be helpful. Pleaides subscribers can also view where the burden of care falls too much on any one caregiver and where support is needed to avoid burnout.</div>';
+  if(s.imSelf.length) h+='<div class="res-p"><b>You selected \u201cI manage myself\u201d</b> for: '+s.imSelf.join(', ')+'. You might benefit from creating a circle of care.</div>';
+  if(s.lovedNow.length) h+='<div class="res-p"><b>\u201cLoved one self-managed\u201d now</b> for: '+s.lovedNow.join(', ')+'. A time may come when this is not possible.</div>';
+  if(s.lovedFuture.length) h+='<div class="res-p"><b>\u201cLoved one self-managed\u201d in the future</b> for: '+s.lovedFuture.join(', ')+'. This may indicate a need for conversation should self-management not be possible at some point.</div>';
+  h+='<div class="res-p">A shared calendar would let you:'
+    +ul(['See the self-managed loved one\u2019s calendar online','Have the person managing themselves share status with doctors, aides, etc. and manage/share the calendar','Have the circle of care (anyone who helps past the first two responses) be assigned a role, accept a qualified role based on their physical location, view the calendar and post notes'])
+    +'</div>';
+  h+='</div>';
+
+  // Daily living
+  h+=scoreHead('Daily living','');
+  h+='<div class="res-p">Daily living tasks rely more on caregivers over time. Pleaides\u2019 planning calendar allows errands, appointments and other events to be visible to all caregivers.</div>';
+  if(s.dApp) h+='<div class="res-p"><b>'+s.dBenefit+'</b> of '+s.dApp+' task'+(s.dApp===1?'':'s')+' where help is needed or you\u2019d like to share them.</div>';
+  h+='</div>';
+
+  // Quality of life — statement of values
+  h+=scoreHead('Quality of life','');
+  h+='<div class="res-p">Quality of Life is not a score, but a Statement of Values, or an understanding of what these values are by caregivers. The results bring visibility into where alignment exists and where there is need for future discussion.</div>';
+  if(s.qolVery.length){ h+='<div class="res-sub2">Most important to you</div>'+ul(s.qolVery); }
+  if(s.qolSomewhat.length){ h+='<div class="res-sub2">Also valued</div>'+ul(s.qolSomewhat); }
+  if(!s.qolVery.length && !s.qolSomewhat.length) h+='<div class="res-p" style="color:var(--faint)">Your quality-of-life values will appear here from your answers.</div>';
+  h+='</div>';
+
+  // Dashboard export (prototype tool)
+  h+=scoreHead('Dashboard export','');
+  h+='<div style="font-size:12.5px;color:var(--faint);margin-bottom:.55rem;">Copies this persona \u2014 all answers plus the computed scores \u2014 as JSON to paste into the dashboard.</div>';
+  h+='<button type="button" class="btn-json" onclick="copyPersona()">Copy persona (JSON)</button>';
+  h+='<div id="personaMsg" style="font-size:12px;color:var(--sky-dark);margin-top:.45rem;min-height:1em;"></div>';
+  h+='<textarea id="personaJson" class="persona-ta" readonly style="display:none;"></textarea></div>';
+
+  // Generate My Report (separate request; inactive for now)
+  h+='<div class="report-wrap"><button type="button" class="btn-report" disabled>Generate My Report</button><div class="ph" style="max-width:340px;margin:.6rem auto 0;">[ Placeholder \u2014 report helper text. The report is a separate request; the button stays inactive until the report builder is ready. ]</div></div>';
+
+  document.getElementById('resultsView').innerHTML=h;
+}
+
+function collectAnswers(){
+  var form=document.getElementById('intakeForm'), out={};
+  form.querySelectorAll('input[name],select[name],textarea[name]').forEach(function(el){
+    var name=el.name; if(!name) return;
+    if(el.type==='checkbox'||el.type==='radio'){
+      if(!el.checked) return;
+      if(name.slice(-2)==='[]'){ var k=name.slice(0,-2); (out[k]=out[k]||[]).push(el.value); }
+      else out[name]=el.value;
+    } else {
+      var v=el.value; if(v===''||v==='\u2014') return; out[name]=v;
+    }
+  });
+  return out;
+}
+function buildScores(){
+  var s=computeScores();
+  return {
+    tier:{ name:s.tier.name, description:s.tier.desc, fraction:Math.round(s.frac*1000)/1000 },
+    A:{ completion_pct:s.aCompletionPct, exist:s.aExist, needed:s.aNeeded, categories:s.aCats },
+    B:{ areas_answered:s.bAns, need_help:s.bBenefit, in_place:s.bInPlace },
+    D:{ tasks_applicable:s.dApp, need_help:s.dBenefit, in_place:s.dInPlace },
+    C_note:"Quality-of-life alignment is computed at the compare layer across respondents (not scored from a single response)."
+  };
+}
+function buildPersona(){ return { meta:{ exported:new Date().toISOString(), form_version:"v26" }, answers:collectAnswers(), scores:buildScores() }; }
+function copyPersona(){
+  var json=JSON.stringify(buildPersona(),null,2);
+  var ta=document.getElementById('personaJson'), note=document.getElementById('personaMsg');
+  ta.value=json; ta.style.display='block'; ta.focus(); ta.select();
+  function ok(){ note.textContent='Copied to clipboard \u2014 paste it into the dashboard chat.'; }
+  function manual(){ note.textContent='Select the text above and copy (Ctrl/Cmd-C).'; }
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(json).then(ok, manual); }
+    else { document.execCommand('copy'); ok(); }
+  }catch(e){ manual(); }
+}
+
+/* ===== FORM 2 — LIFE / FAMILY PLANNING (mirrors Elder Care) ===== */
+var SP_YN=["","Yes","No","Unsure","N/A"];
+var SP_ESTATE=["Is your will current and signed?","If you have a trust, is it funded (assets titled to it) to avoid probate?","Are your beneficiary designations (retirement, insurance) up to date?","Have you named an executor / personal representative?","Have you named a successor trustee?","Is there a letter of instruction for your executor?"];
+var fpcliv=[["Current & next-stage living arrangement",LIV,LIV],["Importance of living in a specific town or state",NNN,NNN],["Interest in moving to be near family or specific loved ones",NNN,NNN],["Importance of being near a circle of friends",NNN,NNN]];
+var FP_AREAS=[["Document and Organization Management","assessing what is well organized, where your documents and online accounts are located, where passwords are stored, and what reduces future complexity for your beneficiaries."],["Circle of Care Creation and Coordination","designing your support network for unexpected events, and who helps and how — from emotional support to legal authority."],["Aligning Quality of Life Preferences","bringing clarity to your preferences for future living, activities, health and independence, so your spouse/partner and beneficiaries are aligned."],["Daily Living Communication Management","documenting important information and tasks that can be assigned and viewed by others based on permissions you create."],["Estate & Post-Death","assuring your estate is organized to avoid future legal complexities and probate."],["End of Life Planning","assuring your end-of-life preferences are clear and communicated."]];
 (function(){
-  var q1=document.querySelectorAll('input[name="q1"]');
+  var fd=document.getElementById('fp_docs');
+  if(fd) fd.innerHTML=Object.entries(DOCS).map(function(e,ci){var cat=e[0],items=e[1];return '<div class="sub" id="fpsub'+ci+'"><div class="sub-h" onclick="toggleFpSub('+ci+')"><span>'+cat+'</span><span class="chev">▾</span></div><div class="sub-body"><table><thead><tr><th style="width:48%;">Document</th><th style="width:18%;">Existing</th><th style="width:17%;">Location Known</th><th style="width:17%;">Professionally Managed by 3rd Party</th></tr></thead><tbody>'+items.map(function(it){var base='fp_doc_'+slug(cat)+'_'+slug(it);return '<tr><td class="rh">'+it+'</td><td data-label="Existing">'+yn3(base+'_exist')+'</td><td data-label="Location Known">'+yn3(base+'_loc')+'</td><td data-label="3rd-Party Managed">'+yn3(base+'_3p')+'</td></tr>';}).join('')+'</tbody></table></div></div>';}).join('');
+  var fs=document.getElementById('fp_step1'); if(fs) fs.innerHTML=FP_AREAS.map(function(a){return '<tr><td class="rh"><b>'+a[0]+'</b> <span class="subt">— '+a[1]+'</span></td><td data-label="Importance">'+sel(IMP,'fp_importance_'+slug(a[0]))+'</td></tr>';}).join('');
+  var fcx=document.getElementById('fp_cats'); if(fcx) fcx.innerHTML=FP_AREAS.map(function(a,i){return '<label class="opt"><input type="checkbox" name="fp_categories[]" value="'+a[0]+'" onchange="toggleFpMenu('+i+',this.checked)"> '+a[0]+'</label>';}).join('');
+  var fb=document.getElementById('fp_bcare');
+  if(fb) fb.innerHTML=BROWS.map(function(r){return '<tr><td class="rh">'+r+'</td><td data-label="Currently managed by">'+sel(LOAD,'fp_care_'+slug(r)+'_now')+'</td><td data-label="Preferred future method">'+sel(LOAD,'fp_care_'+slug(r)+'_future')+'</td></tr>';}).join('')+BAUTH.map(function(r){return '<tr><td class="rh">'+r+'</td><td data-label="Currently managed by">'+sel(TP,'fp_auth_'+slug(r)+'_now')+'</td><td data-label="Preferred future method">'+sel(TP,'fp_auth_'+slug(r)+'_future')+'</td></tr>';}).join('');
+  document.getElementById('fp_cliv').innerHTML=fpcliv.map(function(r){return qRow(r,'fp_living');}).join('');
+  document.getElementById('fp_ccare').innerHTML=ccare.map(function(r){return qRow(r,'fp_care');}).join('');
+  document.getElementById('fp_cfin').innerHTML=cfin.map(function(r){return r[2]==='multi'?'<tr><td class="rh">'+r[0]+'</td><td data-label="Select all that apply">'+multiSel(r[1],'fp_finance_'+slug(r[0]))+'</td></tr>':'<tr><td class="rh">'+r[0]+'</td><td data-label="Select">'+sel(r[1],'fp_finance_'+slug(r[0])+'_pref')+'</td></tr>';}).join('');
+  document.getElementById('fp_cacts').innerHTML=ACTS.map(function(a){return '<tr><td class="rh">'+a+'</td><td data-label="Priority">'+sel(VSU,'fp_activity_'+slug(a))+'</td></tr>';}).join('');
+  document.getElementById('fp_cval').innerHTML=[["Do you feel your answers align with your spouse/partner, beneficiaries or circle of care?",["","Yes","Some","No"]],["How are successful conversations on difficult topics managed among your circle of care? An example would be determining when it is no longer safe to drive.",["","Well- we openly discuss","Varied- depends on the topic","Not Well- I don’t feel heard"]]].map(function(v,i){return '<tr><td class="rh">'+v[0]+'</td><td data-label="Answer">'+sel(v[1],'fp_align_'+(i+1))+'</td></tr>';}).join('');
+  document.getElementById('fp_elog').innerHTML=ETASKS.map(function(t){return '<tr><td class="rh">'+t+'</td><td data-label="Current management">'+sel(MGMT,'fp_task_'+slug(t)+'_mgmt')+'</td><td data-label="Notes & calendar helpful?">'+sel(["","Y","N"],'fp_task_'+slug(t)+'_notes')+'</td><td data-label="Assign to others?">'+sel(["","Y","N"],'fp_task_'+slug(t)+'_assign')+'</td><td data-label="Notify when accepted?">'+sel(["","Y","N"],'fp_task_'+slug(t)+'_notify')+'</td></tr>';}).join('');
+  document.getElementById('fp_estate').innerHTML=SP_ESTATE.map(function(q){return '<tr><td class="rh">'+q+'</td><td data-label="Select">'+sel(SP_YN,'fp_estate_'+slug(q))+'</td></tr>';}).join('');
+  document.getElementById('fp_eol').innerHTML=EOL.map(function(r){return '<tr><td class="rh">'+r[0]+'</td><td data-label="Please Select">'+sel(r[1],'fp_eol_'+slug(r[0]))+'</td><td data-label="Communicated or in will?">'+sel(["","Yes","No"],'fp_eol_'+slug(r[0])+'_comm')+'</td></tr>';}).join('');
+})();
+var _fpres=0; function addFpRes(){ if(_fpres>=3)return; var r=++_fpres; var tb=document.querySelector('#fp_res_t tbody'); var tr=document.createElement('tr'); tr.innerHTML='<td data-label="State"><select class="txt state-sel" name="fp_res_state_'+r+'"></select></td><td data-label="Zip"><input class="txt" name="fp_res_zip_'+r+'" placeholder="Zip"></td>'; tb.appendChild(tr); populateStates(tr); }
+var _fpben=0; function addFpBen(){ if(_fpben>=3)return; var r=++_fpben; var tb=document.querySelector('#fp_ben_t tbody'); var tr=document.createElement('tr'); tr.innerHTML='<td data-label="State"><select class="txt state-sel" name="fp_ben_state_'+r+'"></select></td><td data-label="Zip"><input class="txt" name="fp_ben_zip_'+r+'" placeholder="Zip"></td>'; tb.appendChild(tr); populateStates(tr); }
+var _fpnet=0; function addFpNet(){ var r=++_fpnet; var tb=document.querySelector('#fp_net tbody'); var tr=document.createElement('tr'); tr.innerHTML='<td data-label="Who">'+sel(NETWHO,'fp_net_who_'+r)+'<input class="txt spec-in" name="fp_net_who_other_'+r+'" placeholder="Please specify" style="display:none;"></td><td data-label="Location"><div class="loc-row"><select class="txt loc-state state-sel" name="fp_net_state_'+r+'"></select><input class="txt loc-zip" name="fp_net_zip_'+r+'" placeholder="Zip"></div></td><td data-label="How they support">'+multiSel(NETHOW,'fp_net_how_'+r)+'<input class="txt spec-in" name="fp_net_how_other_'+r+'" placeholder="Please specify" style="display:none;"></td>'; tb.appendChild(tr); populateStates(tr); var whoSel=tr.querySelector('select[name="fp_net_who_'+r+'"]'); var whoOther=tr.querySelector('input[name="fp_net_who_other_'+r+'"]'); whoSel.addEventListener('change',function(){ whoOther.style.display=(whoSel.value==='Other (please specify)')?'block':'none'; }); var howOther=tr.querySelector('input[name="fp_net_how_other_'+r+'"]'); tr.querySelectorAll('input[name="fp_net_how_'+r+'[]"]').forEach(function(cb){ if(cb.value==='Other (please specify)'){ cb.addEventListener('change',function(){ howOther.style.display=cb.checked?'block':'none'; }); } }); }
+addFpNet(); addFpRes(); addFpBen();
+function computeScoresFP(){
+  var aExist=0,aNeeded=0,aAns=0,aTot=0,aMissing=[],aCats=[];
+  Object.keys(DOCS).forEach(function(cat){var items=DOCS[cat],ans=0;items.forEach(function(it){aTot++;var v=fval('fp_doc_'+slug(cat)+'_'+slug(it)+'_exist');if(answered(v)){ans++;aAns++;if(v==='Y')aExist++;else if(v==='N'){aNeeded++;aMissing.push(it);}}});aCats.push({name:cat,pct:items.length?Math.round(ans/items.length*100):0});});
+  var aCompletionPct=aTot?Math.round(aAns/aTot*100):0;
+  var LOAD_LVL={"No one yet":0,"Loved one self-managed":1,"I manage myself":1,"Mostly me with some help":2,"Shared equally":3,"Mostly others":4};
+  function loadLvl(v){return LOAD_LVL.hasOwnProperty(v)?LOAD_LVL[v]:-1;}
+  var onePersonSet=["Loved one self-managed","I manage myself","Mostly me with some help","No one yet"];
+  var bAns=0,bBenefit=0,bInPlace=0;
+  BROWS.forEach(function(area){var now=fval('fp_care_'+slug(area)+'_now'),fut=fval('fp_care_'+slug(area)+'_future');if(!answered(now))return;bAns++;var onePerson=onePersonSet.indexOf(now)>=0;var wantsMore=answered(fut)&&loadLvl(fut)>loadLvl(now);if(onePerson&&wantsMore)bBenefit++;else bInPlace++;});
+  var dApp=0,dBenefit=0,dInPlace=0;
+  ETASKS.forEach(function(t){var m=fval('fp_task_'+slug(t)+'_mgmt'),asg=fval('fp_task_'+slug(t)+'_assign');if(!answered(m)||m==='Not applicable')return;dApp++;if(m==='Help needed'||asg==='Yes')dBenefit++;else dInPlace++;});
+  var esAns=0,esInPlace=0,esMissing=[];
+  SP_ESTATE.forEach(function(q){var v=fval('fp_estate_'+slug(q));if(!answered(v)||v==='N/A')return;esAns++;if(v==='Yes')esInPlace++;else if(v==='No')esMissing.push(q);});
+  var eAns=0,eComm=0,eMissing=[];
+  EOL.forEach(function(r){var pref=fval('fp_eol_'+slug(r[0]));if(!answered(pref))return;eAns++;if(fval('fp_eol_'+slug(r[0])+'_comm')==='Yes')eComm++;else eMissing.push(r[0]);});
+  var inPlace=aExist+bInPlace+dInPlace+esInPlace+eComm;
+  var totalPieces=(aExist+aNeeded)+bAns+dApp+esAns+eAns;
+  var frac=totalPieces?inPlace/totalPieces:0;
+  return {aCats:aCats,aCompletionPct:aCompletionPct,aExist:aExist,aNeeded:aNeeded,aMissing:aMissing,bAns:bAns,bBenefit:bBenefit,bInPlace:bInPlace,dApp:dApp,dBenefit:dBenefit,dInPlace:dInPlace,esAns:esAns,esInPlace:esInPlace,esMissing:esMissing,eAns:eAns,eComm:eComm,eMissing:eMissing,frac:frac,totalPieces:totalPieces,tier:pickTier(frac,totalPieces)};
+}
+function renderResults2(){
+  var s=computeScoresFP(), t=s.tier, h='';
+  function ul(items){return '<ul class="res-ul">'+items.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';}
+  h+='<div class="res-title">Your results</div>';
+  h+='<div class="res-intro">Thank you for your responses. Below are your overall results and potential next steps for planning your own future and keeping your beneficiaries informed. Pleaides subscribers have automated dashboards created from the responses that allow for:'+ul(['Upload or store locations of important documents','Create a custom circle of care and name who steps in','Keep estate and end-of-life wishes clear and communicated','Allow beneficiaries access to view the calendar and share notes','Find service providers in the Care Marketplace'])+'</div>';
+  h+='<div class="tier-card '+t.cls+'"><div class="tier-stage">Your stage</div><div class="tier-name">'+t.name+'</div><div class="tier-desc">'+t.desc+'</div><div class="tier-track"><div class="tier-fill" style="width:'+Math.max(6,Math.round(s.frac*100))+'%"></div></div></div>';
+  h+=scoreHead('Documents &amp; organization','');
+  if(s.aMissing.length){h+='<div class="res-p"><b>'+s.aMissing.length+'</b> document'+(s.aMissing.length===1?'':'s')+' you’ve marked as not yet in place:</div>'+ul(s.aMissing);}else{h+='<div class="res-p" style="color:var(--faint)">No documents marked as not in place yet.</div>';}
+  h+='<div class="res-sub2">Per-category progress</div>';
+  s.aCats.forEach(function(c){h+='<div class="catrow"><span class="catname">'+c.name+'</span><span class="bar"><span class="bar-fill" style="width:'+c.pct+'%"></span></span><span class="catpct">'+c.pct+'%</span></div>';});
+  h+='</div>';
+  h+=scoreHead('Circle of care','');
+  h+='<div class="res-p">Pleaides helps you name who would step in if something happened unexpectedly, and assign roles so the burden never falls too heavily on any one person. Your answers indicate where building out this circle would help.</div>';
+  if(s.bAns) h+='<div class="res-p"><b>'+s.bBenefit+'</b> of '+s.bAns+' area'+(s.bAns===1?'':'s')+' where more hands may be needed in the future than today.</div>';
+  h+='</div>';
+  h+=scoreHead('Daily living','');
+  if(s.dApp) h+='<div class="res-p"><b>'+s.dBenefit+'</b> of '+s.dApp+' task'+(s.dApp===1?'':'s')+' where help is needed or you’d like to share them on a calendar.</div>';
+  else h+='<div class="res-p" style="color:var(--faint)">Your daily-living tasks will appear here from your answers.</div>';
+  h+='</div>';
+  h+=scoreHead('Estate &amp; post-death','');
+  if(s.esAns){h+='<div class="res-p"><b>'+s.esInPlace+'</b> of '+s.esAns+' estate item'+(s.esAns===1?'':'s')+' in place.</div>';if(s.esMissing.length)h+='<div class="res-p">Still to address:</div>'+ul(s.esMissing);}
+  else h+='<div class="res-p" style="color:var(--faint)">Your estate readiness will appear here from your answers.</div>';
+  h+='</div>';
+  h+=scoreHead('End of life','');
+  h+='<div class="res-p">Preferences matter most when they are written down or communicated. Your score reflects whether wishes have been shared or included in your will, not the preference itself.</div>';
+  if(s.eAns){h+='<div class="res-p"><b>'+s.eComm+'</b> of '+s.eAns+' set of wishes communicated or included in your will.</div>';if(s.eMissing.length)h+='<div class="res-p">Not yet communicated:</div>'+ul(s.eMissing);}
+  h+='</div>';
+  h+=scoreHead('Quality of life','');
+  h+='<div class="res-p">Quality of Life is not a score, but a Statement of Values. The results bring visibility into where you and your spouse/partner, beneficiaries and circle of care align, and where there is need for future discussion.</div>';
+  h+='</div>';
+  h+=scoreHead('Dashboard export','');
+  h+='<div style="font-size:12.5px;color:var(--faint);margin-bottom:.55rem;">Copies this persona — all answers plus the computed scores — as JSON to paste into the dashboard.</div>';
+  h+='<button type="button" class="btn-json" onclick="copyPersona()">Copy persona (JSON)</button>';
+  h+='<div id="personaMsg" style="font-size:12px;color:var(--sky-dark);margin-top:.45rem;min-height:1em;"></div>';
+  h+='<textarea id="personaJson" class="persona-ta" readonly style="display:none;"></textarea></div>';
+  h+='<div class="report-wrap"><button type="button" class="btn-report" disabled>Generate My Report</button></div>';
+  document.getElementById('resultsView').innerHTML=h;
+}
+
+(function(){
+  var q1=document.querySelectorAll('input[name="care_for[]"]');
   var intake=document.getElementById('intakeBody');
   var second=document.getElementById('secondForm');
   var submitWrap=document.getElementById('submitWrap');
   var form=document.getElementById('intakeForm');
   function update(){
-    var wantsIntake = (q1[0] && q1[0].checked) || (q1[1] && q1[1].checked);
-    var wantsSecond = q1[2] && q1[2].checked;
+    var wantsIntake = q1[0] && q1[0].checked;
+    var wantsSecond = (q1[1] && q1[1].checked) || (q1[2] && q1[2].checked);
     if(intake)     intake.style.display     = wantsIntake ? '' : 'none';
     if(second)     second.style.display     = wantsSecond ? '' : 'none';
     if(submitWrap) submitWrap.style.display = (wantsIntake || wantsSecond) ? '' : 'none';
@@ -409,16 +869,39 @@ document.getElementById('eol').innerHTML=EOL.map(r=>`<tr><td class="rh">${r[0]}<
 
   if(form){
     form.addEventListener('submit', function(e){
-      // Disable inputs inside any hidden section so empty fields aren't submitted
-      ['intakeBody','secondForm'].forEach(function(id){
-        var sec=document.getElementById(id); if(!sec) return;
-        var hidden = getComputedStyle(sec).display==='none';
-        sec.querySelectorAll('input,select,textarea').forEach(function(f){ f.disabled=hidden; });
-      });
-      // Placeholder guard — remove these lines once your Formspree endpoint is set
-      if(form.getAttribute('action').indexOf('YOUR_FORMSPREE_ID')!==-1){
-        e.preventDefault();
-        alert('The form is ready — add your Formspree endpoint to the form’s action to go live.');
+      e.preventDefault();
+      var intakeOn = intake && getComputedStyle(intake).display!=='none';
+      var rv=document.getElementById('resultsView');
+      var gmsg=document.getElementById('gateMsg');
+      if(intakeOn){
+        // Require the "How can we help and what matters most?" section
+        var imps=[].slice.call(document.querySelectorAll('#step1 select'));
+        var blanks=imps.filter(function(s){return s.selectedIndex<=0;});
+        var catChecked=document.querySelectorAll('input[name="categories[]"]:checked').length>0;
+        if(blanks.length || !catChecked){
+          blanks.forEach(function(sq){ sq.classList.add('need'); sq.addEventListener('change',function h(){ sq.classList.remove('need'); sq.removeEventListener('change',h); }); });
+          if(gmsg){ gmsg.textContent='Please complete this section before form submission.'+(blanks.length?' The highlighted rating(s) still need an answer.':'')+(catChecked?'':' Also choose at least one category below.'); gmsg.style.display='block'; }
+          try{ alert('Please complete this section before form submission.'); }catch(_){}
+          var anchor=document.getElementById('whatMatters');
+          if(anchor) anchor.scrollIntoView({behavior:'smooth',block:'start'});
+          if(blanks[0]) setTimeout(function(){blanks[0].focus();},350);
+          return;
+        }
+        if(gmsg) gmsg.style.display='none';
+        try{
+          renderResults(computeScores());
+        }catch(err){
+          rv.innerHTML='<div class="res-title">Your results</div><div class="ph">We hit a snag generating your results: '+((err&&err.message)?err.message:err)+'. Please share this message so we can fix it.</div>';
+        }
+      } else {
+        try{ renderResults2(); }catch(err){ rv.innerHTML='<div class="res-title">Your results</div><div class="ph">We hit a snag generating your results: '+((err&&err.message)?err.message:err)+'</div>'; }
+      }
+      rv.style.display='';
+      rv.scrollIntoView({behavior:'smooth',block:'start'});
+      // Background capture to Formspree (only when LIVE_SUBMIT is on)
+      if(LIVE_SUBMIT){
+        ['intakeBody','secondForm'].forEach(function(id){ var sec=document.getElementById(id); if(sec){ var hidden=getComputedStyle(sec).display==='none'; sec.querySelectorAll('input,select,textarea').forEach(function(f){ f.disabled=hidden; }); } });
+        try{ fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}}); }catch(err){}
       }
     });
   }
@@ -426,6 +909,9 @@ document.getElementById('eol').innerHTML=EOL.map(r=>`<tr><td class="rh">${r[0]}<
 function toggleMenu(i,c){var e=document.getElementById('cat'+i);if(c){e.style.display='block';}else{e.style.display='none';e.classList.remove('open');}}
 function toggleCat(i){document.getElementById('cat'+i).classList.toggle('open');}
 function toggleSub(i){document.getElementById('sub'+i).classList.toggle('open');}
+function toggleFpMenu(i,c){var e=document.getElementById('fpcat'+i);if(c){e.style.display='block';}else{e.style.display='none';e.classList.remove('open');}}
+function toggleFpCat(i){document.getElementById('fpcat'+i).classList.toggle('open');}
+function toggleFpSub(i){document.getElementById('fpsub'+i).classList.toggle('open');}
 </script>
 </body>
 </html>
